@@ -3,8 +3,13 @@
 #![feature(alloc_error_handler)]
 #![feature(llvm_asm)]
 
+extern crate alloc;
+
 pub mod process;
-mod syscall;
+pub mod fs;
+#[doc(hidden)]
+#[macro_use]
+pub mod stdio;
 
 use core::alloc::Layout;
 use core::panic::PanicInfo;
