@@ -3,10 +3,9 @@
 
 use libspicyos;
 
-#[no_mangle]
-pub fn main() -> usize {
+#[export_name = "main"]
+fn main() {
     libspicyos::syscall::process_exit(99999999);
     // println!("Hello world from user mode program!");
-    0
 }
 

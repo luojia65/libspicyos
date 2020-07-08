@@ -27,19 +27,16 @@ fn panic(_info: &PanicInfo) -> ! {
 
 /// 程序入口
 #[no_mangle]
-pub extern "C" fn _start(_args: isize, _argv: *const u8) -> ! {
+pub extern "C" fn _start() -> ! {
     unsafe {
         HEAP.lock()
             .init(HEAP_SPACE.as_ptr() as usize, USER_HEAP_SIZE);
     }
-    main();
-    loop {}
-}
-
-#[linkage = "weak"]
-#[no_mangle]
-fn main() -> isize {
-    panic!("no main() linked");
+    extern {
+        fn main();
+    }
+    unsafe { main(); }
+    syscall::process_exit(0)
 }
 
 /// 终止程序
