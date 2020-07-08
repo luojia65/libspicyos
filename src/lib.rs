@@ -1,6 +1,9 @@
 #![no_std]
 #![feature(linkage)]
 #![feature(alloc_error_handler)]
+#![feature(llvm_asm)]
+
+pub mod syscall;
 
 use core::alloc::Layout;
 use core::panic::PanicInfo;

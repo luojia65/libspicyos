@@ -5,6 +5,8 @@ use libspicyos;
 
 #[no_mangle]
 pub fn main() -> usize {
+    libspicyos::syscall::process_exit(99999999);
     // println!("Hello world from user mode program!");
     0
 }
+
