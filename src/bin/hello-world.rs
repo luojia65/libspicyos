@@ -1,10 +1,12 @@
 #![no_std]
 #![no_main]
 
-use libspicyos;
+use libspicyos as std;
 
 #[export_name = "main"]
 fn main() {
-    libspicyos::syscall::process_exit(99999999);
+    let id = std::process::id();
+    let exit_code = i32::from_ne_bytes(id.to_ne_bytes());
+    std::process::exit(exit_code);
 }
 

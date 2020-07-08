@@ -3,7 +3,8 @@
 #![feature(alloc_error_handler)]
 #![feature(llvm_asm)]
 
-pub mod syscall;
+pub mod process;
+mod syscall;
 
 use core::alloc::Layout;
 use core::panic::PanicInfo;
@@ -36,7 +37,7 @@ pub extern "C" fn _start() -> ! {
         fn main();
     }
     unsafe { main(); }
-    syscall::process_exit(0)
+    process::exit(0)
 }
 
 /// 终止程序
