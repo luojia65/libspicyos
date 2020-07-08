@@ -6,6 +6,7 @@ build_dir := "../build"
 out_dir := "../build/disk"
 
 size := "rust-size"
+objdump := "riscv64-unknown-elf-objdump"
 
 build app_name: 
     @cargo build
@@ -19,3 +20,6 @@ build app_name:
 
 size app_name:
     @{{size}} -A -x {{user_build}}/{{app_name}}
+
+asm app_name:
+    @{{objdump}} -D {{user_build}}/{{app_name}} | less
