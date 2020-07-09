@@ -5,15 +5,15 @@
 
 extern crate alloc;
 
-pub mod process;
 pub mod fs;
+pub mod process;
 #[doc(hidden)]
 #[macro_use]
 pub mod stdio;
 
+use buddy_system_allocator::LockedHeap;
 use core::alloc::Layout;
 use core::panic::PanicInfo;
-use buddy_system_allocator::LockedHeap;
 
 /// 每个用户进程所用的堆大小（1M）
 pub const USER_HEAP_SIZE: usize = 0x10_0000;
@@ -38,10 +38,12 @@ pub extern "C" fn _start() -> ! {
         HEAP.lock()
             .init(HEAP_SPACE.as_ptr() as usize, USER_HEAP_SIZE);
     }
-    extern {
+    extern "C" {
         fn main();
     }
-    unsafe { main(); }
+    unsafe {
+        main();
+    }
     process::exit(0)
 }
 

@@ -19,10 +19,12 @@ pub fn id() -> u32 {
 
 fn syscall(module: usize, function: usize, param0: usize) -> usize {
     let ans: usize;
-    unsafe { llvm_asm!(
-        "ecall"
-        :"={a0}"(ans)
-        :"{a0}"(module),"{a1}"(function),"{a2}"(param0)
-    ); }
+    unsafe {
+        llvm_asm!(
+            "ecall"
+            :"={a0}"(ans)
+            :"{a0}"(module),"{a1}"(function),"{a2}"(param0)
+        );
+    }
     ans
 }
