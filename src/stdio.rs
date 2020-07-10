@@ -1,6 +1,6 @@
 use core::fmt::{self, Write};
 
-const STDOUT: usize = 0;
+const STDOUT: usize = 1;
 
 /// 实现 [`core::fmt::Write`] trait 来进行格式化输出
 struct Stdout;
@@ -13,7 +13,8 @@ impl Write for Stdout {
     }
 }
 
-/// 打印由 [`core::format_args!`] 格式化后的数据
+// 打印由 [`core::format_args!`] 格式化后的数据
+#[doc(hidden)]
 pub fn _print(args: fmt::Arguments) {
     Stdout.write_fmt(args).unwrap();
 }
