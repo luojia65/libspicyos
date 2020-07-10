@@ -1,5 +1,6 @@
 use core::fmt::{self, Write};
 
+// const STDIN: usize = 0;
 const STDOUT: usize = 1;
 
 /// 实现 [`core::fmt::Write`] trait 来进行格式化输出
