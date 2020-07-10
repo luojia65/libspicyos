@@ -1,9 +1,14 @@
+//! 文件相关的ABI
+
 const MODULE_FS: usize = 0xF0114514;
 
 const FUNCTION_FS_READ: usize = 0x10002000;
 const FUNCTION_FS_WRITE: usize = 0x30004000;
 
 pub type Result<T> = core::result::Result<T, ()>;
+
+// 暂时只有文件的read和write
+// 需要包装成和std差不多的格式
 
 pub fn fs_read(fd: usize, buf: &mut [u8]) -> Result<usize> {
     let (ans, err) = syscall(

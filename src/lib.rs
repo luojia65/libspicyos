@@ -7,6 +7,8 @@ extern crate alloc;
 
 pub mod fs;
 pub mod process;
+
+// 只用宏，必须隐藏。不private是因为里面有宏需要调用的函数
 #[doc(hidden)]
 #[macro_use]
 pub mod stdio;
@@ -27,8 +29,9 @@ static HEAP: LockedHeap = LockedHeap::empty();
 
 /// 打印 panic 信息并退出用户程序
 #[panic_handler]
-fn panic(_info: &PanicInfo) -> ! {
-    loop {}
+fn panic(info: &PanicInfo) -> ! {
+    println!("{}", info);
+    process::abort()
 }
 
 /// 程序入口
@@ -41,8 +44,9 @@ pub extern "C" fn _start() -> ! {
     extern "C" {
         fn main();
     }
+    // 运行用户提供的main函数
     unsafe {
-        main();
+        main(); // 暂时没有返回值，未来可以做Termination::report
     }
     process::exit(0)
 }
