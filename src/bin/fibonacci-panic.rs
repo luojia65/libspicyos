@@ -7,7 +7,7 @@ extern crate libspicyos as std;
 #[export_name = "main"]
 fn main() {
     println!("Start fibonacci!");
-    let n = 1000; 
+    let n = 1000;
     // 最后会产生panic："panicked at 'attempt to add with overflow'"
     let mut a = 0;
     let mut b = 1;
